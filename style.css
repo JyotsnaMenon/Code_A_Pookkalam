@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fffbe7; /* festive background */
+  font-family: 'Trebuchet MS', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 5vw; /* responsive font */
+  color: #e91e63;
+  text-shadow: 1px 1px 2px #ff9800;
+}
+
+canvas {
+  max-width: 90vw;   /* responsive */
+  max-height: 70vh;  /* responsive */
+  border: 4px solid #ff5722;
+  border-radius: 50%;
+  background: white;
+}
