@@ -1,14 +1,14 @@
 const canvas = document.getElementById("pookkalamCanvas");
 const ctx = canvas.getContext("2d");
 
-// Function to resize canvas dynamically
 function resizeCanvas() {
-  canvas.width = Math.min(window.innerWidth * 0.8, window.innerHeight * 0.7);
-  canvas.height = canvas.width; // keep it square
+  const size = Math.min(window.innerWidth * 0.9, 500);
+  canvas.width = size;
+  canvas.height = size;
   drawPookkalam();
 }
 
-// Function to draw circle
+// Utility: Draw a circle
 function drawCircle(radius, color) {
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
@@ -18,11 +18,10 @@ function drawCircle(radius, color) {
   ctx.fill();
 }
 
-// Function to draw petals
-function drawPetals(radius, petalCount, color) {
+// Utility: Draw petals
+function drawPetals(radius, petalCount, petalRadius, color) {
   const centerX = canvas.width / 2;
   const centerY = canvas.height / 2;
-  const petalRadius = canvas.width * 0.08; // relative size
 
   for (let i = 0; i < petalCount; i++) {
     const angle = (i * 2 * Math.PI) / petalCount;
@@ -36,21 +35,31 @@ function drawPetals(radius, petalCount, color) {
   }
 }
 
-// Main function to draw pookkalam
+// Main design
 function drawPookkalam() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const maxRadius = canvas.width / 2.2;
+  const maxRadius = canvas.width / 2;
 
-  drawCircle(maxRadius, "#ffeb3b"); // yellow outer
-  drawCircle(maxRadius * 0.75, "#ff5722"); // orange middle
-  drawCircle(maxRadius * 0.5, "#4caf50"); // green inner
-  drawCircle(maxRadius * 0.25, "#9c27b0"); // purple core
+  // Layer 1: Outer yellow base
+  drawCircle(maxRadius, "#ffeb3b");
 
-  drawPetals(maxRadius * 0.5, 12, "#f44336"); // red petals
-  drawPetals(maxRadius * 0.8, 20, "#3f51b5"); // blue petals
+  // Layer 2: Red petal ring
+  drawPetals(maxRadius * 0.8, 20, canvas.width * 0.08, "#f44336");
+
+  // Layer 3: Green middle circle
+  drawCircle(maxRadius * 0.55, "#4caf50");
+
+  // Layer 4: Purple petals inside
+  drawPetals(maxRadius * 0.4, 12, canvas.width * 0.06, "#9c27b0");
+
+  // Layer 5: Orange inner circle
+  drawCircle(maxRadius * 0.25, "#ff9800");
+
+  // Layer 6: Decorative white dots in core
+  drawPetals(maxRadius * 0.15, 8, canvas.width * 0.02, "#ffffff");
 }
 
-// Resize canvas on load and window resize
+// Redraw when page loads or resizes
 window.addEventListener("load", resizeCanvas);
 window.addEventListener("resize", resizeCanvas);
